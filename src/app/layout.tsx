@@ -5,8 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Solace Candidate Assignment",
-  description: "Show us what you got",
+  title: "Solace Health - Search for Advocates",
+  description:
+    "Search for advocates by name, city, degree, specialties, years of experience, or phone number.",
 };
 
 export default function RootLayout({
