@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --border-radius: 8px;
+  --primary-color: rgb(40, 94, 80);
+}
+
+main {
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.search-input-box {
+  border: 1px solid black;
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+}

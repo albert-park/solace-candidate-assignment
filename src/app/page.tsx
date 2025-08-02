@@ -1,6 +1,17 @@
 "use client";
-
 import { useEffect, useState } from "react";
+import Table from "./components/Table";
+
+export type Advocate = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  city: string;
+  degree: string;
+  specialties: string[];
+  yearsOfExperience: number;
+  phoneNumber: number;
+};
 
 export default function Home() {
   const [advocates, setAdvocates] = useState([]);
@@ -16,20 +27,26 @@ export default function Home() {
     });
   }, []);
 
-  const onChange = (e) => {
-    const searchTerm = e.target.value;
-
-    document.getElementById("search-term").innerHTML = searchTerm;
+  const onChange = (e: any) => {
+    const searchTerm = e.target.value.toLowerCase();
 
     console.log("filtering advocates...");
-    const filteredAdvocates = advocates.filter((advocate) => {
+    const filteredAdvocates = advocates.filter((advocate: Advocate) => {
+      if (!searchTerm) return advocate; // If no search term, show all advocates
+
       return (
-        advocate.firstName.includes(searchTerm) ||
-        advocate.lastName.includes(searchTerm) ||
-        advocate.city.includes(searchTerm) ||
-        advocate.degree.includes(searchTerm) ||
-        advocate.specialties.includes(searchTerm) ||
-        advocate.yearsOfExperience.includes(searchTerm)
+        advocate.firstName.toLowerCase().includes(searchTerm) ||
+        advocate.lastName.toLowerCase().includes(searchTerm) ||
+        advocate.city.toLowerCase().includes(searchTerm) ||
+        advocate.degree.toLowerCase().includes(searchTerm) ||
+        advocate.specialties.some((specialty) =>
+          specialty.toLowerCase().includes(searchTerm)
+        ) ||
+        advocate.yearsOfExperience
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm) ||
+        advocate.phoneNumber.toString().toLowerCase().includes(searchTerm)
       );
     });
 
@@ -42,50 +59,17 @@ export default function Home() {
   };
 
   return (
-    <main style={{ margin: "24px" }}>
+    <main className="p-6 m-6 place-self-center max-w-3xl relative flex flex-col">
       <h1>Solace Advocates</h1>
-      <br />
-      <br />
       <div>
-        <p>Search</p>
-        <p>
-          Searching for: <span id="search-term"></span>
-        </p>
-        <input style={{ border: "1px solid black" }} onChange={onChange} />
-        <button onClick={onClick}>Reset Search</button>
+        <input className="p-1 search-input-box" onChange={onChange} />
+        <button className="p-1" onClick={onClick}>
+          Reset Search
+        </button>
       </div>
       <br />
       <br />
-      <table>
-        <thead>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>City</th>
-          <th>Degree</th>
-          <th>Specialties</th>
-          <th>Years of Experience</th>
-          <th>Phone Number</th>
-        </thead>
-        <tbody>
-          {filteredAdvocates.map((advocate) => {
-            return (
-              <tr>
-                <td>{advocate.firstName}</td>
-                <td>{advocate.lastName}</td>
-                <td>{advocate.city}</td>
-                <td>{advocate.degree}</td>
-                <td>
-                  {advocate.specialties.map((s) => (
-                    <div>{s}</div>
-                  ))}
-                </td>
-                <td>{advocate.yearsOfExperience}</td>
-                <td>{advocate.phoneNumber}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table items={filteredAdvocates} />
     </main>
   );
 }
