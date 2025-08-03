@@ -11,10 +11,67 @@ main {
   border: 2px solid var(--primary-color);
   border-radius: var(--border-radius);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  min-width: 800px;
+  @media screen and (max-width: 900px) {
+    min-width: 95%;
+  }
+}
+
+.solace-header {
+  background-color: var(--primary-color);
+  color: white;
+
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  input {
+    font-size: 10px;
+    color: black;
+  }
+
+  button {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid white;
+    border-radius: var(--border-radius);
+    font-size: 10px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+  }
 }
 
 .search-input-box {
   border: 1px solid black;
   border-radius: var(--border-radius);
-  padding: 0.5rem;
+}
+
+td {
+  align-content: baseline;
+}
+
+td.contact-section {
+  font-size: 12px;
+  width: 20%;
+}
+
+td.list-section {
+  font-size: 10px;
+  width: 50%;
+}
+
+td.years-section {
+  font-size: 12px;
+  width: 15%;
 }
