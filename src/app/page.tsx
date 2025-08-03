@@ -1,12 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import Table from "./components/Table";
+import Header from "./components/Header";
 
 export type Advocate = {
   id: number;
   firstName: string;
   lastName: string;
   city: string;
+  state: string;
   degree: string;
   specialties: string[];
   yearsOfExperience: number;
@@ -16,6 +18,7 @@ export type Advocate = {
 export default function Home() {
   const [advocates, setAdvocates] = useState([]);
   const [filteredAdvocates, setFilteredAdvocates] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     console.log("fetching advocates...");
@@ -23,6 +26,7 @@ export default function Home() {
       response.json().then((jsonResponse) => {
         setAdvocates(jsonResponse.data);
         setFilteredAdvocates(jsonResponse.data);
+        setIsLoading(false);
       });
     });
   }, []);
@@ -38,6 +42,7 @@ export default function Home() {
         advocate.firstName.toLowerCase().includes(searchTerm) ||
         advocate.lastName.toLowerCase().includes(searchTerm) ||
         advocate.city.toLowerCase().includes(searchTerm) ||
+        advocate.state.toLowerCase().includes(searchTerm) ||
         advocate.degree.toLowerCase().includes(searchTerm) ||
         advocate.specialties.some((specialty) =>
           specialty.toLowerCase().includes(searchTerm)
@@ -59,17 +64,10 @@ export default function Home() {
   };
 
   return (
-    <main className="p-6 m-6 place-self-center max-w-3xl relative flex flex-col">
-      <h1>Solace Advocates</h1>
-      <div>
-        <input className="p-1 search-input-box" onChange={onChange} />
-        <button className="p-1" onClick={onClick}>
-          Reset Search
-        </button>
-      </div>
-      <br />
-      <br />
-      <Table items={filteredAdvocates} />
+    <main className="m-6 place-self-center max-w-3xl relative flex flex-col">
+      <Header onChange={onChange} onClick={onClick} />
+      {isLoading && <p className="m-6">Loading...</p>}
+      {!isLoading && <Table items={filteredAdvocates} />}
     </main>
   );
 }
