@@ -8,12 +8,12 @@ type TableProps = {
 
 const Table = ({ items }: TableProps) => {
   return (
-    <table className="table-auto">
+    <table className="table-auto m-6">
       <thead className="flex-col">
         <tr className="column-header columns-3">
-          <th className="p-3 text-center flex-3">Contact Info</th>
-          <th className="p-8 text-center flex-1">Specialties</th>
-          <th className="p-8 text-center flex-1">Experience</th>
+          <th className=" text-center flex-3">Contact Info</th>
+          <th className=" text-center flex-1">Specialties</th>
+          <th className=" text-center flex-1">Experience</th>
         </tr>
       </thead>
       <tbody className="flex-col">

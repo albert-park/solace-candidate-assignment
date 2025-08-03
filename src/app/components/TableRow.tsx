@@ -6,6 +6,7 @@ const TableRow = (item: Advocate) => {
     firstName,
     lastName,
     city,
+    state,
     degree,
     specialties,
     yearsOfExperience,
@@ -14,19 +15,21 @@ const TableRow = (item: Advocate) => {
 
   return (
     <tr key={id}>
-      <td className="p-3 text-left flex-3">
-        <p>
+      <td className="p-3 text-center contact-section">
+        <strong>
           {firstName} {lastName}, {degree}
+        </strong>
+        <p>
+          {city}, {state}
         </p>
-        <p>{city}</p>
         <p>{phoneNumber}</p>
       </td>
-      <td className="p-8 text-left flex-3">
+      <td className="p-8 text-left list-section">
         {specialties.map((specialty) => (
           <span key={specialty}>{specialty}, </span>
         ))}
       </td>
-      <td className="p-8 text-left  flex-3">{yearsOfExperience} years</td>
+      <td className="p-8 text-left years-section">{yearsOfExperience} years</td>
     </tr>
   );
 };
